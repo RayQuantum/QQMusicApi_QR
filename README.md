@@ -1,83 +1,11 @@
 # QQMusicApi
+修改了routes/user.js，用于输出cookie
+支持二维码登录。
 
-[![NPM](https://img.shields.io/npm/v/qq-music-api.svg)](https://www.npmjs.com/package/qq-music-api)
-[![github](https://img.shields.io/badge/github-QQMusicApi-brightgreen.svg)](https://github.com/jsososo/QQMusicApi)
-[![GitHub Pages Star](https://img.shields.io/github/stars/jsososo/QQMusicApi.svg)](https://github.com/jsososo/QQMusicApi)
-
-
-接口参考：
-
-[接口文档 Github](https://jsososo.github.io/QQMusicApi/#/)
-
-[接口文档 Vercel](https://qq-api-soso.vercel.app/)
-
-
-## 快速上手
-
-### Node 服务
-
-```shell script
-git clone git@github.com:jsososo/QQMusicApi.git
-
-yarn
-
-yarn start
-```
-
-### Docker
-
-```shell script
-yarn build:docker
-
-yarn start:docker
-```
-
-
-### npm
-
-```shell script
-yarn add qq-music-api
-```
-
-#### 接口调用
-
-```javascript
-const qqMusic = require('qq-music-api');
-
-// 部分接口依赖 cookie, 这里穿参可以使用字符串或对象
-qqMusic.setCookie('xxx=xxx; xxx=xxx;');
-// or
-qqMusic.setCookie({ a: 'xxx', b: 'xxx' });
-
-qqMusic.api('search', { key: '周杰伦' })
-    .then(res => console.log(res))
-    .catch(err => console.log('接口调用出错'))
-
-qqMusic.api('search', { key: '周杰伦' })
-    .then((res) => console.log('搜索周杰伦：', res))
-    .catch(err => console.log('接口调用出错'))
-
-qqMusic.api('search/hot')
-    .then((res) => console.log('热搜词：', res))
-    .catch(err => console.log('接口调用出错'))//
-
-// 刷新登陆
-qqMusic.api('user/refresh')
-```
-
-#### 获取当前cookie
-
-```javascript
-const qqMusic = require('qq-music-api');
-
-console.log(qqMusic.cookie);
-```
-
-#### 获取当前 cookie 用户
-```javascript
-const qqMusic = require('qq-music-api');
-
-console.log(qqMusic.uin);
-```
-
-
+将原版的QQmusic API打包成镜像，直接通过下载导入，即可部署，免去环境配置的复杂
+下载完成后`docker load qqmusic_image.tar`
+修改https://github.com/yunxiangjun/QQMusicApi/tree/master的部分代码，以适配插件。
+## 更新时间2025-3-13
+百度网盘链接: https://pan.baidu.com/s/1gFpFDVDg1pr_2aR1OMAIRg?pwd=6666 提取码: 6666 
+## 更新时间2025-3-19
+百度网盘链接: https://pan.baidu.com/s/1mbXkOs7gvEQ6PNnUHXB8aQ?pwd=6666 提取码: 6666 
