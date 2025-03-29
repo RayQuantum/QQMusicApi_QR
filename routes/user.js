@@ -596,7 +596,7 @@ const user = {
         jsonFile.writeFile('data/cookie.json', userCookie, globalCookie.refreshUserCookie);
       }
 
-      return res.send({ isOk: true, result: 100, message: '登录成功' });
+      return res.send({ isOk: true, result: 100, message: '登录成功' ,uin: userCookie.uin, cookie: userCookie});
     } catch (error) {
       return res.send({ isOk: false, result: 500, errMsg: 'some errors' });
     }
