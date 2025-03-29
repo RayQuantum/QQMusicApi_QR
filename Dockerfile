@@ -1,16 +1,32 @@
-FROM node:12.18.3
+# deepseek生成
+# 使用 Node.js 官方镜像作为基础镜像
+FROM node:18-alpine AS builder
 
-USER root
+# 设置工作目录
+WORKDIR /app
 
-WORKDIR /home/qqmusic
+# 复制包管理文件并安装依赖
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile --production
 
+# 复制源代码
 COPY . .
 
-VOLUME ["./data","./bin"]
+# （可选）构建步骤，如前端项目需要
+# RUN yarn build
 
-RUN npm config set registry https://registry.npmmirror.com \
-    && npm install && npm install cross-env -g
+# 使用多阶段构建减小镜像体积
+FROM node:18-alpine
 
-EXPOSE 80
+WORKDIR /app
 
-CMD ["cross-env","PORT=80","node","/home/qqmusic/bin/www"]
+# 从构建阶段复制依赖和构建结果
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app ./
+
+# 暴露端口（按实际需要修改）
+EXPOSE 3300
+
+# 启动命令
+CMD ["yarn", "start"]
